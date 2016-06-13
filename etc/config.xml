@@ -1,0 +1,21 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <stores>
+         <luma_de>
+            <general>
+                <country>
+                    <default>DE</default>
+                </country>
+                <locale>
+                    <code>de_DE</code>
+                    <weight_unit>kgs</weight_unit>
+                </locale>
+            </general>
+             <currency>
+                 <options>
+                     <default>EUR</default>
+                     <allow>EUR</allow>
+                 </options>
+             </currency>
+        </luma_de>
+    </stores>
+</config>
