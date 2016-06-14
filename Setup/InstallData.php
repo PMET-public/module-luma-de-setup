@@ -28,6 +28,7 @@ class InstallData implements Setup\InstallDataInterface
         $this->storeView = $storeView;
         $this->websiteRepository = $websiteRepository;
         $this->website = $website;
+        $this->config = require 'Config.php';
     }
 
 
@@ -35,32 +36,24 @@ class InstallData implements Setup\InstallDataInterface
 
     public function install(Setup\ModuleDataSetupInterface $setup, Setup\ModuleContextInterface $moduleContext)
     {
-        $_website = 'base';
-        $_groupName = 'Main Website Store';
-        $_newViewCode = 'luma_de';
-        $_newViewName = 'German';
-        $_priority = 5;
-
         //get id of website by name
-        $_websiteId = $this->websiteRepository->get($_website)->getId();
+        $_websiteId = $this->websiteRepository->get($this->config['website'])->getId();
 
         //get groups (stores in website)
-        $_websiteGroups = $this->website->load($_websiteId)->getGroups();
+        $_websiteGroups = $this->website->load($this->config['website'])->getGroups();
 
         //get id of group
         foreach ($_websiteGroups as $group){
-            if($group->getName()==$_groupName){
-                echo $_groupName;
+            if($group->getName()==$this->config['groupName']){
                 $_groupId = $group->getId();
-                echo $_groupId;
                 break;
             }
         }
-        $this->storeView->setName($_newViewName);
-        $this->storeView->setCode($_newViewCode);
+        $this->storeView->setName($this->config['newViewName']);
+        $this->storeView->setCode($this->config['newViewCode']);
         $this->storeView->setWebsiteId($_websiteId);
         $this->storeView->setGroupId($_groupId); // GroupId is a Store ID (in adminhtml terms)
-        $this->storeView->setSortOrder($_priority);
+        $this->storeView->setSortOrder($this->config['newViewPriority']);
         $this->storeView->setIsActive(true);
         $this->storeView->save();
     }
