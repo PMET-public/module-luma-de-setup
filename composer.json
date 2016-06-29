@@ -3,12 +3,31 @@
     "type": "magento2-module",
     "require": {
         "magento/framework": "*",
-        "splendidinternet/mage2-locale-de-de": "*"
+        "splendidinternet/mage2-locale-de-de": "*",
+        "magentoese/module-luma-de-attributes":"*",
+        "magentoese/module-luma-de-categories":"*",
+        "magentoese/module-luma-de-products":"*"
+
     },
     "autoload": {
         "files": [ "registration.php" ],
         "psr-4": {
             "MagentoEse\\LumaDESetup\\": ""
         }
-    }
+    },
+    "repositories": [{
+        "type": "git",
+        "url": "git@gitlab.the1umastory.com:md/module-luma-de-attributes.git"
+
+        },
+        {
+            "type": "git",
+            "url": "git@gitlab.thelumastory.com:md/module-luma-de-categories.git"
+
+        },
+        {
+            "type": "git",
+            "url": "git@gitlab.thelumastory.com:md/module-luma-de-products.git.git"
+
+        }]
 }
