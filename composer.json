@@ -3,7 +3,10 @@
     "type": "magento2-module",
     "require": {
         "magento/framework": "*",
-        "splendidinternet/mage2-locale-de-de": "*"
+        "splendidinternet/mage2-locale-de-de": "*",
+        "magentoese/module-luma-de-attributes":"*",
+        "magentoese/module-luma-de-categories":"*",
+        "magentoese/module-luma-de-products":"*"
 
     },
     "autoload": {
