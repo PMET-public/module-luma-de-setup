@@ -4,9 +4,9 @@
     "require": {
         "magento/framework": "*",
         "splendidinternet/mage2-locale-de-de": "*",
-        "magentoese/module-luma-de-attributes":"0.0.*",
-        "magentoese/module-luma-de-categories":"0.0.*",
-        "magentoese/module-luma-de-products":"0.0.*"
+        "magentoese/module-luma-de-attributes":"*",
+        "magentoese/module-luma-de-categories":"*",
+        "magentoese/module-luma-de-products":"*"
 
     },
     "autoload": {
