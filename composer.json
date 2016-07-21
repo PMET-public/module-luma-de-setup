@@ -3,7 +3,7 @@
     "type": "magento2-module",
     "require": {
         "magento/framework": "*",
-        "splendidinternet/mage2-locale-de-de": "*",
+        "splendidinternet/mage2-locale-de-de": "*"
 
 
     },
