@@ -10,17 +10,22 @@ use Magento\Framework\Setup;
 
 class InstallData implements Setup\InstallDataInterface
 {
-    protected $storeView;
+    private $storeView;
 
-    protected $websiteRepository;
+    private $websiteRepository;
 
-    protected $groupRepository;
+    private $groupRepository;
 
-    protected $website;
+    private $website;
+
+    private $objectManager;
+    private $state;
 
     public function __construct(\Magento\Store\Model\Store $storeView,
                                 \Magento\Store\Model\WebsiteRepository $websiteRepository,
-                                \Magento\Store\Model\Website $website
+                                \Magento\Store\Model\Website $website,
+                                \Magento\Framework\ObjectManagerInterface   $objectManager,
+                                \Magento\Framework\App\State $state
 
 
     )
@@ -29,6 +34,13 @@ class InstallData implements Setup\InstallDataInterface
         $this->websiteRepository = $websiteRepository;
         $this->website = $website;
         $this->config = require 'Config.php';
+        $this->objectManager=$objectManager;
+        try{
+            $state->setAreaCode('adminhtml');
+        }
+        catch(\Magento\Framework\Exception\LocalizedException $e){
+            // left empty
+        }
     }
 
 
@@ -56,5 +68,15 @@ class InstallData implements Setup\InstallDataInterface
         $this->storeView->setSortOrder($this->config['newViewPriority']);
         $this->storeView->setIsActive(true);
         $this->storeView->save();
+
+        //initialize importer for later
+        $_productsArray[] = "";
+
+        $this->importerModel  = $this->objectManager->create('MagentoEse\LumaDEProducts\Model\Importer');
+        try {
+            $this->importerModel->processImport($_productsArray);
+        } catch (\Exception $e) {
+            //print_r($e->getMessage());
+        }
     }
 }
