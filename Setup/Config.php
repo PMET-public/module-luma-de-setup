@@ -3,6 +3,6 @@ return array (
     'website'=>'base',
     'groupName'=>'Main Website Store',
     'newViewCode'=>'luma_de',
-    'newViewName'=>'German',
+    'newViewName'=>'Deutsch',
     'newViewPriority'=>5
 );
