@@ -21,7 +21,7 @@ class InstallData implements Setup\InstallDataInterface
     private $objectManager;
     private $state;
 
-    public function __construct(\Magento\Store\Model\Store $storeView,
+    public function __construct(\Magento\Store\Model\StoreFactory $storeView,
                                 \Magento\Store\Model\WebsiteRepository $websiteRepository,
                                 \Magento\Store\Model\Website $website,
                                 \Magento\Framework\ObjectManagerInterface   $objectManager,
@@ -61,14 +61,16 @@ class InstallData implements Setup\InstallDataInterface
                 break;
             }
         }
-        $this->storeView->setName($this->config['newViewName']);
-        $this->storeView->setCode($this->config['newViewCode']);
-        $this->storeView->setWebsiteId($_websiteId);
-        $this->storeView->setGroupId($_groupId); // GroupId is a Store ID (in adminhtml terms)
-        $this->storeView->setSortOrder($this->config['newViewPriority']);
-        $this->storeView->setIsActive(true);
-        $this->storeView->save();
+        $newStore = $this->storeView->create();
+        $newStore->setName($this->config['newViewName']);
+        $newStore->setCode($this->config['newViewCode']);
+        $newStore->setWebsiteId($_websiteId);
+        $newStore->setGroupId($_groupId); // GroupId is a Store ID (in adminhtml terms)
+        $newStore->setSortOrder($this->config['newViewPriority']);
+        $newStore->setIsActive(true);
+        $newStore->save();
 
+/*
         //initialize importer for later
         $_productsArray[] = "";
 
@@ -77,6 +79,6 @@ class InstallData implements Setup\InstallDataInterface
             $this->importerModel->processImport($_productsArray);
         } catch (\Exception $e) {
             //print_r($e->getMessage());
-        }
+        }*/
     }
 }
