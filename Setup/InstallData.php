@@ -14,17 +14,13 @@ class InstallData implements Setup\InstallDataInterface
 
     private $websiteRepository;
 
-    private $groupRepository;
-
     private $website;
 
-    private $objectManager;
     private $state;
 
     public function __construct(\Magento\Store\Model\StoreFactory $storeView,
                                 \Magento\Store\Model\WebsiteRepository $websiteRepository,
                                 \Magento\Store\Model\Website $website,
-                                \Magento\Framework\ObjectManagerInterface   $objectManager,
                                 \Magento\Framework\App\State $state
 
 
@@ -34,7 +30,6 @@ class InstallData implements Setup\InstallDataInterface
         $this->websiteRepository = $websiteRepository;
         $this->website = $website;
         $this->config = require 'Config.php';
-        $this->objectManager=$objectManager;
         try{
             $state->setAreaCode('adminhtml');
         }
@@ -61,6 +56,13 @@ class InstallData implements Setup\InstallDataInterface
                 break;
             }
         }
+        //Change name of default store
+        $defaultStore = $this->storeView->create();
+        $defaultStore->load('default');
+        $defaultStore->setName($this->config['defaultStoreName']);
+        $defaultStore->save();
+
+        //add new store
         $newStore = $this->storeView->create();
         $newStore->setName($this->config['newViewName']);
         $newStore->setCode($this->config['newViewCode']);
@@ -69,16 +71,5 @@ class InstallData implements Setup\InstallDataInterface
         $newStore->setSortOrder($this->config['newViewPriority']);
         $newStore->setIsActive(true);
         $newStore->save();
-
-/*
-        //initialize importer for later
-        $_productsArray[] = "";
-
-        $this->importerModel  = $this->objectManager->create('MagentoEse\LumaDEProducts\Model\Importer');
-        try {
-            $this->importerModel->processImport($_productsArray);
-        } catch (\Exception $e) {
-            //print_r($e->getMessage());
-        }*/
     }
 }
