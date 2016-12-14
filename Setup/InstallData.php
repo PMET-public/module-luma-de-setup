@@ -56,11 +56,6 @@ class InstallData implements Setup\InstallDataInterface
                 break;
             }
         }
-        //Change name of default store
-        $defaultStore = $this->storeView->create();
-        $defaultStore->load('default');
-        $defaultStore->setName($this->config['defaultStoreName']);
-        $defaultStore->save();
 
         //add new store
         $newStore = $this->storeView->create();
@@ -71,5 +66,11 @@ class InstallData implements Setup\InstallDataInterface
         $newStore->setSortOrder($this->config['newViewPriority']);
         $newStore->setIsActive(true);
         $newStore->save();
+
+        //Change name of default store
+        $defaultStore = $this->storeView->create();
+        $defaultStore->load('default');
+        $defaultStore->setName($this->config['defaultStoreName']);
+        $defaultStore->save();
     }
 }
