@@ -39,6 +39,7 @@
             <module name="MagentoEse_ProductBadgeSampleData"/>
             <module name="MagentoEse_InStorePickup"/>
             <module name="MagentoEse_InStorePickupSampleData"/>
+            <module name="MagentoEse_ElasticsearchConfig" />
          </sequence>
     </module>
 </config>
