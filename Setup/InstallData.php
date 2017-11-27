@@ -18,18 +18,20 @@ class InstallData implements Setup\InstallDataInterface
 
     private $state;
 
+    private $resourceConfig;
+
     public function __construct(\Magento\Store\Model\StoreFactory $storeView,
                                 \Magento\Store\Model\WebsiteRepository $websiteRepository,
                                 \Magento\Store\Model\Website $website,
-                                \Magento\Framework\App\State $state
-
-
+                                \Magento\Framework\App\State $state,
+                                \Magento\Config\Model\ResourceModel\Config $resourceConfig
     )
     {
         $this->storeView = $storeView;
         $this->websiteRepository = $websiteRepository;
         $this->website = $website;
         $this->config = require 'Config.php';
+        $this->resourceConfig = $resourceConfig;
         try{
             $state->setAreaCode('adminhtml');
         }
@@ -72,5 +74,7 @@ class InstallData implements Setup\InstallDataInterface
         $defaultStore->load('default');
         $defaultStore->setName($this->config['defaultStoreName']);
         $defaultStore->save();
+
+        $this->resourceConfig->saveConfig("general/locale/code", "de_DE", "stores", $newStore->getId());
     }
 }
