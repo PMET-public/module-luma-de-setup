@@ -2,8 +2,7 @@
     "name": "magentoese/module-luma-de-setup",
     "type": "magento2-module",
     "require": {
-        "magento/framework": "*",
-        "splendidinternet/mage2-locale-de-de": "*"
+        "magento/framework": "*"
 
 
     },
