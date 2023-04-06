@@ -41,6 +41,12 @@ class InstallData implements Setup\InstallDataInterface
     private $resourceConfig;
 
     /**
+     * 
+     * @var array
+     */
+    private $config;
+
+    /**
      * InstallData constructor.
      * @param \Magento\Store\Model\StoreFactory $storeView
      * @param \Magento\Store\Api\StoreRepositoryInterfaceFactory $storeRepositoryFactory
